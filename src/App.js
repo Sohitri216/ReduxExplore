@@ -1,26 +1,78 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { connect } from 'react-redux';
+import { updateUser } from './actions/userActions';
+// import { incrementCounter } from './actions/productActions';
+import { incrementCounter } from './actions/counterActions';
+import { decrementCounter } from './actions/counterActions';
+import { bindActionCreators } from 'redux';
+
+export class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: ''
+    }
+  }
+
+  onUpdateUser = (e) => {
+    this.setState({
+      username: e.target.value,
+    })
+  }
+
+  updateUserName = () => {
+    this.props.onUpdateUser(this.state.username)
+  }
+
+  incCount = () => {
+    console.log(this.props.counterVal)
+    this.props.upCount(this.props.counterVal);
+  }
+
+  decCount = () => {
+    this.props.downCount(this.props.counterVal);
+  }
+
+  render() {
+    // console.log('props:', this.props);
+    const { user, counterVal } = this.props;
+    return (
+      <React.Fragment>
+        <div>
+          <input type="text" onChange={this.onUpdateUser} placeholder="Enter user name" />
+          <button onClick={this.updateUserName}>Update</button>
+          <p>Hi {user}</p>
+        </div>
+        <div>
+          <button onClick={this.incCount}>Up</button><span>(Increased after 4sec delay introduxed by saga async)</span>
+          <p>Counter:{counterVal}</p>
+          <button onClick={this.decCount}>Down</button>
+        </div>
+      </React.Fragment>
+    )
+  }
 }
 
-export default App;
+const mapStateToProps = (state, props) => {
+  console.log('props:', props);
+  return {
+    products: state.products,
+    user: state.user,
+    counterVal: state.counterVal,
+    inputProps: props.randomProps
+  }
+
+};
+
+const mapActionsToProps = (dispatch) => {
+  return bindActionCreators({
+    onUpdateUser: updateUser,
+    upCount: incrementCounter,
+    downCount: decrementCounter
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(App);
