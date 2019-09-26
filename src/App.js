@@ -59,7 +59,6 @@ export class App extends Component {
 const mapStateToProps = (state, props) => {
   console.log('props:', props);
   return {
-    products: state.products,
     user: state.user,
     counterVal: state.counterVal,
     inputProps: props.randomProps

@@ -1,31 +1,34 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import productReducer from '../reducers/counterReducer'
+import todoReducer from '../reducers/todoReducer'
 import userReducer from '../reducers/userReducers';
 import counterReducer from '../reducers/counterReducer';
 import createSagaMiddleware from 'redux-saga';
 import { watchIncrement } from '../saga/saga';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
+import {initReducer} from '../reducers/initReducer';
+
 
 const sagaMiddleware = createSagaMiddleware();
 
-const allReducers = combineReducers({
-    products: productReducer,
+export const history = createBrowserHistory();
+
+const rootReducer = (history) => combineReducers({
+    router: connectRouter(history),
     user: userReducer,
-    counterVal: counterReducer
+    counterVal: counterReducer,
+    todoList: todoReducer
 });
 
-const initStore = {
-    products: [{
-        name: 'iPhone'
-    }],
-    user: 'Michael',
-    counterVal: 0
-}
+// const initStore = {
+//     user: 'Michael',
+//     counterVal: 0,
+//     todoList: []
+// }
 
 export const store = createStore(
-    allReducers,
-    initStore,
-    applyMiddleware(sagaMiddleware)
-    // window.devToolsExtension && window.devToolsExtension()
+    rootReducer(history),
+    initReducer,
+    applyMiddleware(sagaMiddleware, routerMiddleware(history))
 );
 sagaMiddleware.run(watchIncrement);

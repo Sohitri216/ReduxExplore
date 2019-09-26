@@ -2,18 +2,38 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { Route, Switch } from 'react-router'
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
+import { ConnectedRouter } from 'connected-react-router';
+import {configureStore,  history } from './store/store';
+
+import counter from './components/counter';
+import todo from './components/todoComponent/todo';
 
 const myProps = {
     details: 'sen.s5@cambridgeassessment.org.uk'
 }
 
 
+// ReactDOM.render(
+//     <Provider store={store}>
+//         <App randomProps={myProps} />
+//     </Provider>,
+//     document.getElementById('root')
+// );
+
 ReactDOM.render(
     <Provider store={store}>
-        <App randomProps={myProps} />
+        <ConnectedRouter history={history}>
+            <Switch>
+                <Route exact path='/' component={App} />
+                <Route path='/todo' component={todo} />
+                <Route path='/counter' component={counter} />
+            </Switch>
+        </ConnectedRouter>
+        {/* <App randomProps={myProps} /> */}
     </Provider>,
     document.getElementById('root')
 );
