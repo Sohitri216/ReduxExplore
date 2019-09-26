@@ -19,13 +19,15 @@ export class todo extends Component {
         })
     }
 
-    addItem = () => {
-        console.log('item:', this.state.item);
-        this.props.addItem(this.state.item);
-        this.setState({
-            item: ''
-        });
-        document.getElementById('todo-input').value=''
+    addItem = (e) => {
+        if (e.keyCode === 13 || e.keyCode === undefined) {
+            this.props.addItem(this.state.item);
+            this.setState({
+                item: ''
+            });
+            document.getElementById('todo-input').value = ''
+        }
+
     }
 
     render() {
@@ -33,11 +35,11 @@ export class todo extends Component {
             <React.Fragment>
                 <div className='wrapper text-center'>
                     <h3 className=''>TODO List</h3>
-                    <input id='todo-input' type='text' placeholder='Enter item...' onChange={this.updateItem} />
-                    <button onClick={this.addItem}>Add</button>
-                    <div>
+                    <input id='todo-input' type='text' className='input-field' placeholder='Enter item...' onKeyDown={this.addItem} onChange={this.updateItem} />
+                    <button className='add-button' onClick={this.addItem}>Add</button>
+                    <div className='list-items-container'>
                         {this.props.todoList.todoList.map((obj, i) => {
-                            return (<li key={i}>{obj.item}</li>)
+                            return (<li className='list-items' key={i}>{obj.item}</li>)
                         })}
                     </div>
                 </div>

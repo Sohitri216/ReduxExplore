@@ -4,3 +4,27 @@
 .text-center{
     text-align: center;
 }
+.list-items-container{
+    margin:20px;
+    padding:20px;
+    width:500px;
+    margin:0 auto
+}
+.list-items{
+    text-align:left;
+}
+.input-field{
+    width: 500px;
+    padding: 10px;
+    margin: 5px;
+    border: 2px solid #cdcdcd;
+}
+.add-button{
+    margin-left: 15px;
+    padding: 6px;
+    width: 50px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #bbb;
+    border: 1px solid #111;
+}
