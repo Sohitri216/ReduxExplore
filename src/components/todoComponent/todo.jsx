@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './style.css';
 import { bindActionCreators } from 'C:/Users/sensai/AppData/Local/Microsoft/TypeScript/3.6/node_modules/redux';
-import { addItem } from '../../actions/todoActions';
+import * as actionCreators from '../../actions/todoActions'
 
 export class todo extends Component {
 
@@ -30,6 +30,39 @@ export class todo extends Component {
 
     }
 
+    onCheckedItem = (index) => (e) => {
+        this.props.checkedItem(index);
+    }
+
+    deleteItem = (index) => () => {
+        this.props.deleteItem(index);
+    }
+
+    editItem = (index) => () => {
+        this.setState({
+            item: this.props.todoList.todoList[index].item
+        })
+        this.props.editItem(index);
+    }
+
+    cancelEdit = (index) => () => {
+        this.props.cancelEdit(index)
+    }
+
+    getEditedValue = (index) => (e) => {
+        if (e.keyCode === 13)
+            this.props.editListItem(this.state.item, index)
+    }
+
+    renderActivity = (index) => {
+        return (
+            <React.Fragment>
+                <button onClick={this.editItem(index)}>Edit</button>
+                <button onClick={this.deleteItem(index)}>Del</button>
+            </React.Fragment>
+        )
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -39,7 +72,22 @@ export class todo extends Component {
                     <button className='add-button' onClick={this.addItem}>Add</button>
                     <div className='list-items-container'>
                         {this.props.todoList.todoList.map((obj, i) => {
-                            return (<li className='list-items' key={i}>{obj.item}</li>)
+                            return (
+                                <div className='list-wrapper' key={i}>
+                                    {obj.edit ?
+                                        <React.Fragment>
+                                            <input type='text' value={this.state.item} onKeyDown={this.getEditedValue(i)} onChange={this.updateItem} />
+                                            <span onClick={this.cancelEdit(i)}>X</span>
+                                        </React.Fragment> :
+                                        <React.Fragment>
+                                            <input type='checkbox' checked={obj.checked} onChange={this.onCheckedItem(i)} />
+                                            <li className='list-items'>{obj.item}</li>
+                                            {obj.checked ? this.renderActivity(i) : ''}
+                                        </React.Fragment>
+                                    }
+
+                                </div>
+                            )
                         })}
                     </div>
                 </div>
@@ -58,7 +106,13 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = (dispatch) => {
     return bindActionCreators({
-        addItem: addItem
+        addItem: actionCreators.addItem,
+        checkedItem: actionCreators.checkedItem,
+        deleteItem: actionCreators.deleteItem,
+        editItem: actionCreators.editItem,
+        cancelEdit: actionCreators.cancelEdit,
+        editListItem: actionCreators.editListValue
+
     }, dispatch)
 }
 

@@ -8,10 +8,17 @@
     margin:20px;
     padding:20px;
     width:500px;
-    margin:0 auto
+    margin:0 auto;
+    text-align: left;
+}
+.list-wrapper{
+    width: 100%;
 }
 .list-items{
     text-align:left;
+    padding: 5px;
+    display: inline-block;
+    width: 75%;
 }
 .input-field{
     width: 500px;
