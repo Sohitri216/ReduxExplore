@@ -57,8 +57,8 @@ export class todo extends Component {
     renderActivity = (index) => {
         return (
             <React.Fragment>
-                <button onClick={this.editItem(index)}>Edit</button>
-                <button onClick={this.deleteItem(index)}>Del</button>
+                <button className='user-action' onClick={this.editItem(index)}>Edit</button>
+                <button className='user-action' onClick={this.deleteItem(index)}>Del</button>
             </React.Fragment>
         )
     }
@@ -68,7 +68,7 @@ export class todo extends Component {
             <React.Fragment>
                 <div className='wrapper text-center'>
                     <h3 className=''>TODO List</h3>
-                    <input id='todo-input' type='text' className='input-field' placeholder='Enter item...' onKeyDown={this.addItem} onChange={this.updateItem} />
+                    <input id='todo-input' type='text' autocomplete="off" className='input-field' placeholder='Enter item...' onKeyDown={this.addItem} onChange={this.updateItem} />
                     <button className='add-button' onClick={this.addItem}>Add</button>
                     <div className='list-items-container'>
                         {this.props.todoList.todoList.map((obj, i) => {
@@ -77,7 +77,7 @@ export class todo extends Component {
                                     {obj.edit ?
                                         <React.Fragment>
                                             <input type='text' value={this.state.item} onKeyDown={this.getEditedValue(i)} onChange={this.updateItem} />
-                                            <span onClick={this.cancelEdit(i)}>X</span>
+                                            <span className='cancel-edit' onClick={this.cancelEdit(i)}>X</span>
                                         </React.Fragment> :
                                         <React.Fragment>
                                             <input type='checkbox' checked={obj.checked} onChange={this.onCheckedItem(i)} />

@@ -1,32 +1,38 @@
-.heading{
+.heading {
     text-align: center;
 }
-.text-center{
+
+.text-center {
     text-align: center;
 }
-.list-items-container{
-    margin:20px;
-    padding:20px;
-    width:500px;
-    margin:0 auto;
+
+.list-items-container {
+    margin: 20px;
+    padding: 20px;
+    width: 500px;
+    margin: 0 auto;
     text-align: left;
 }
-.list-wrapper{
+
+.list-wrapper {
     width: 100%;
 }
-.list-items{
-    text-align:left;
+
+.list-items {
+    text-align: left;
     padding: 5px;
     display: inline-block;
     width: 75%;
 }
-.input-field{
+
+.input-field {
     width: 500px;
     padding: 10px;
     margin: 5px;
     border: 2px solid #cdcdcd;
 }
-.add-button{
+
+.add-button {
     margin-left: 15px;
     padding: 6px;
     width: 50px;
@@ -34,4 +40,18 @@
     font-weight: bold;
     background-color: #bbb;
     border: 1px solid #111;
+}
+
+.cancel-edit {
+    float: right;
+    font-weight: bold;
+    padding-right: 30px;
+    cursor: pointer;
+
+}
+.user-action{
+    background-color: #bbb;
+    border: 1px solid #111;
+    font-weight: bold;
+    margin-right: 10px;
 }
