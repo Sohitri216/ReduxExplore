@@ -16,14 +16,6 @@ const myProps = {
     details: 'sen.s5@cambridgeassessment.org.uk'
 }
 
-
-// ReactDOM.render(
-//     <Provider store={store}>
-//         <App randomProps={myProps} />
-//     </Provider>,
-//     document.getElementById('root')
-// );
-
 ReactDOM.render(
     <Provider store={store}>
         <ConnectedRouter history={history}>

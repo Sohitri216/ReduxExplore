@@ -7,11 +7,13 @@ import { updateUser } from './actions/userActions';
 import { incrementCounter } from './actions/counterActions';
 import { decrementCounter } from './actions/counterActions';
 import { bindActionCreators } from 'redux';
+import { createBrowserHistory } from 'history';
 
 export class App extends Component {
-
+  
   constructor(props) {
     super(props);
+    const history = createBrowserHistory();
     this.state = {
       username: ''
     }
@@ -36,11 +38,16 @@ export class App extends Component {
     this.props.downCount(this.props.counterVal);
   }
 
+  navigateToTodo = () => {
+    this.props.history.push('/todo')
+  }
+
   render() {
     // console.log('props:', this.props);
     const { user, counterVal } = this.props;
     return (
       <React.Fragment>
+        <span class='navigate-todo' onClick={this.navigateToTodo}>Go To TODO List</span>
         <div>
           <input type="text" onChange={this.onUpdateUser} placeholder="Enter user name" />
           <button onClick={this.updateUserName}>Update</button>

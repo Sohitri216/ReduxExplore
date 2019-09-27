@@ -23,10 +23,19 @@
   color: #61dafb;
 }
 
+.navigate-todo {
+  margin: 10px;
+  display: inline-block;
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
